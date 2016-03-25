@@ -3,9 +3,7 @@
 namespace app\models;
 
 use Yii;
-use yii\base\ErrorException;
 use yii\base\Model;
-use yii\helpers\Url;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -78,7 +76,7 @@ class LinkForm extends Model
     public function generateUniqueLink($field, $length = 5)
     {
         if ($length > Yii::$app->params['shortLinkLen']) {
-            throw new \InvalidArgumentException('Длинна должна быть не больше 255');
+            throw new \InvalidArgumentException('Длинна должна быть не больше '.Yii::$app->params['shortLinkLen']);
         }
         $link = Yii::$app->security->generateRandomString($length);
         if (Link::find()->where([$field => $link])->exists()) {
