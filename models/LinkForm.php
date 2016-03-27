@@ -73,7 +73,7 @@ class LinkForm extends Model
      * @param int $length
      * @return string
      */
-    public function generateUniqueLink($field, $length = 5)
+    private function generateUniqueLink($field, $length = 5)
     {
         if ($length > Yii::$app->params['shortLinkLen']) {
             throw new \InvalidArgumentException('Длинна должна быть не больше '.Yii::$app->params['shortLinkLen']);

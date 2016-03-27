@@ -44,7 +44,7 @@ class SiteController extends Controller
                     $link
                 );
                 if ($visitor->save()) {
-                    $this->redirect($link->link);
+                    return $this->redirect($link->link);
                 } else {
                     Yii::$app->session->setFlash('error', 'Произошла ошибка. Попробуйте позже');
                     Yii::error('Ошибка создания посетителя');
