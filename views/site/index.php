@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Сокращатель ссылок';
 
-if (!$model->isEmpty()) {
+if (!$model->isSetLinks()) {
     $model->short_link = Url::base(true) . '/' . $model->short_link;
     $model->stat_link = Url::to(['stat', 'statLink' => $model->stat_link], true);
 }
@@ -25,7 +25,7 @@ if (!$model->isEmpty()) {
                 <div class="form-group">
                     <?= Html::submitButton('Сгенерировать', ['class' => 'btn btn-primary']) ?>
                 </div>
-                <?php if (!$model->isEmpty()) { ?>
+                <?php if (!$model->isSetLinks()) { ?>
                     <?= $form->field($model, 'short_link')->textInput(['readonly' => true]) ?>
                     <?= $form->field($model, 'stat_link')->textInput(['readonly' => true]) ?>
                 <?php } ?>

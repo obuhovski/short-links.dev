@@ -89,9 +89,9 @@ class LinkForm extends Model
     /**
      * @return bool
      */
-    public function isEmpty()
+    public function isSetLinks()
     {
-        return empty($this->link);
+        return empty($this->short_link) || empty($this->stat_link);
     }
 
 }
