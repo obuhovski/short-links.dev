@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'linkLen' => 512,
-    'shortLinkLen' => 255,
+    'maxLinkLen' => 512,
+    'maxShortLinkLen' => 255,
 ];

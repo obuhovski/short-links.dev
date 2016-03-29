@@ -7,13 +7,12 @@
 use app\models\Link;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'Статистика переходов по ссылке '.Url::base(true).'/'.$model->short_link;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-share">
+<div class="site-stat">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [

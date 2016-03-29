@@ -23,7 +23,7 @@ class LinkForm extends Model
         return [
             ['link', 'required'],
             ['link', 'url'],
-            ['link', 'string', 'max' => Yii::$app->params['linkLen']],
+            ['link', 'string', 'max' => Yii::$app->params['maxLinkLen']],
         ];
     }
 
@@ -75,8 +75,8 @@ class LinkForm extends Model
      */
     private function generateUniqueLink($field, $length = 5)
     {
-        if ($length > Yii::$app->params['shortLinkLen']) {
-            throw new \InvalidArgumentException('Длинна должна быть не больше '.Yii::$app->params['shortLinkLen']);
+        if ($length > Yii::$app->params['maxShortLinkLen']) {
+            throw new \InvalidArgumentException('Длинна должна быть не больше '.Yii::$app->params['maxShortLinkLen']);
         }
         $link = Yii::$app->security->generateRandomString($length);
         if (Link::find()->where([$field => $link])->exists()) {
