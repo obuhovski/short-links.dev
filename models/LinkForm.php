@@ -15,6 +15,8 @@ class LinkForm extends Model
     public $short_link;
     public $stat_link;
 
+    private $_maxLinksLen;
+
     /**
      * @inheritdoc
      */
@@ -23,7 +25,7 @@ class LinkForm extends Model
         return [
             ['link', 'required'],
             ['link', 'url'],
-            ['link', 'string', 'max' => Yii::$app->params['maxLinkLen']],
+            ['link', 'string', 'max' => $this->_maxLinksLen['link']],
         ];
     }
 
@@ -37,6 +39,20 @@ class LinkForm extends Model
             'short_link' => 'Короткая ссылка',
             'stat_link' => 'Ссылка для статистики',
         ];
+    }
+
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function init()
+    {
+        $columns = Link::getTableSchema()->columns;
+        $this->_maxLinksLen = [
+            'link' => $columns['link']->size,
+            'short_link' => $columns['short_link']->size,
+        ];
+
+        parent::init();
     }
 
     /**
@@ -75,8 +91,8 @@ class LinkForm extends Model
      */
     private function generateUniqueLink($field, $length = 5)
     {
-        if ($length > Yii::$app->params['maxShortLinkLen']) {
-            throw new \InvalidArgumentException('Длинна должна быть не больше '.Yii::$app->params['maxShortLinkLen']);
+        if ($length > $this->_maxLinksLen['short_link']) {
+            throw new \InvalidArgumentException('Длинна должна быть не больше '.$this->_maxLinksLen['short_link']);
         }
         $link = Yii::$app->security->generateRandomString($length);
         if (Link::find()->where([$field => $link])->exists()) {
